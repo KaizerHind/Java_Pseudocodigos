@@ -1,0 +1,27 @@
+package alquilerdvd;
+import java.util.Scanner;
+
+public class AlquilerDVD {
+
+    public static void main(String[] args) {
+        
+        Scanner sc = new Scanner(System.in);
+        int dvd, cantpe, cantdias, total;
+        dvd = 1500;
+        System.out.println("Cantidad de peliculas a Alquilar: ");
+        cantpe = sc.nextInt();
+        System.out.println("Cantidad de dias que alquilara: ");
+        cantdias = sc.nextInt();
+        
+        if((cantpe > 0)&& (cantdias>0)){
+            if(cantpe == 1){
+            total=cantpe*cantdias*dvd;       
+            } else{
+                total = (cantpe - 1) * cantdias * dvd;
+            }
+            System.out.print("El monto a pagar es de: "+total); 
+        }else{
+        System.out.println("Las cantidades de peliculas y dias deben ser mayores a cero.");
+        }
+    }
+}
