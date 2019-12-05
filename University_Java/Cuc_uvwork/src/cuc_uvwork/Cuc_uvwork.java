@@ -51,8 +51,12 @@
     
     - Salir: Debe finalizar el programa. 
     
-    @author Kaizerhind
- */
+    ------------------------------------------------------
+
+    @author Sebastian Camacho | Esteban Mejia | Victor de la hoz
+ 
+    ------------------------------------------------------
+*/
 package cuc_uvwork;
 
 
@@ -69,11 +73,14 @@ public class Cuc_uvwork {
     /*---------------------------------*/
     boolean exit = false;
     String nombre[] = new String[1000], direccion[] = new String[1000], res;
-    int op, cliente, codigo[] = new int[1000];
-    double consumo[] = new double[1000];
+    String cadena = " ";
+    int contador = 0, op, cliente, codigo[] = new int[1000];
+    int num; 
+    double totalC, totalF, promedioC, promedioF, consumo[] = new double[1000];
 
     /*---------------------------------*/
 
+    
     public void cargar() {
         while (!exit) {
             System.out.println(prp + "|--------------------------------------------------|");
@@ -84,9 +91,9 @@ public class Cuc_uvwork {
             System.out.println(prp + "| 5. Salir.                                        |");
             System.out.println(prp + "|--------------------------------------------------|");
             System.out.println("\n");
-            
+
             try {
-                System.out.print(prp +"Elige una opción: ");
+                System.out.print(prp + "Elige una opción: ");
 
                 op = in.nextInt();
                 switch (op) {
@@ -94,32 +101,32 @@ public class Cuc_uvwork {
                         String respuesta;
                         do {
                             respuesta = "";
-                            System.out.print(prp +"¿Cuantos clientes deseas ingresar?: ");
+                            System.out.print(prp + "¿Cuantos clientes deseas ingresar?: ");
                             cliente = in.nextInt();
                             for (int i = 0; i < 1000; i++) {
                                 if (codigo[i] == 0) {
                                     for (int j = 0; j < cliente; j++) {
                                         boolean nosepuede = false;
-                                        System.out.print(prp +"Ingresa codigo del cliente: " + (j + 1) + ": ");
+                                        System.out.print(prp + "Ingresa codigo del cliente: " + (j + 1) + ": ");
                                         codigo[i] = in.nextInt();
                                         if (codigo[i] <= 0) {
                                             nosepuede = true;
-                                            System.out.println(rd +"Solo se admiten valores mayores a 0.");
+                                            System.out.println(rd + "Solo se admiten valores mayores a 0.");
                                         } else {
                                             for (int k = 0; k < i; k++) {
                                                 if (codigo[k] == codigo[i]) {
                                                     nosepuede = true;
-                                                    System.out.println(rd+ "Este codigo ya esta repetido o esta en uso.");
+                                                    System.out.println(rd + "Este codigo ya esta repetido o esta en uso.");
                                                 }
                                             }
                                         }
 
                                         if (nosepuede == false) {
                                             /*----------------------------------------------------------*/
-                                            System.out.print(prp +"Ingresa nombre del cliente: ");
+                                            System.out.print(prp + "Ingresa nombre del cliente: ");
                                             nombre[i] = S.nextLine();
                                             /*----------------------------------------------------------*/
-                                            System.out.print(prp +"Ingresa direccion del cliente: ");
+                                            System.out.print(prp + "Ingresa direccion del cliente: ");
                                             direccion[i] = S.nextLine();
                                             /*----------------------------------------------------------*/
                                             System.out.println("");
@@ -127,101 +134,142 @@ public class Cuc_uvwork {
                                         } else {
                                             j--;
                                         }
-                                        
+
                                     }
                                     break;
                                 }
                             }
-                            System.out.print(prp +"¿Quieres ingresar mas clientes? s/n: ");
+                            System.out.print(prp + "¿Quieres ingresar mas clientes? s/n: ");
                             respuesta = S.nextLine();
                         } while (respuesta.equalsIgnoreCase("s"));
-                        System.out.println(prp +"Bienvenido de nuevo al Menu Principal.");
+                        System.out.println(prp + "Bienvenido de nuevo al Menu Principal.");
                         break;
                     case 2:
                         int n;
                         String respuesta2;
                         if (codigo[0] == 0) {
-                            System.out.println(rd +"Actualmente no hay clientes registrados.");
+                            System.out.println(rd + "Actualmente no hay clientes registrados.");
                         } else {
                             do {
-                                System.out.print(prp +"Ingresa el codigo del cliente: ");
+                                System.out.print(prp + "Ingresa el codigo del cliente: ");
                                 n = in.nextInt();
                                 respuesta2 = "";
+
                                 for (int i = 0; i < 1000; i++) {
-                                    if (codigo[i] == n) {
-                                        if (consumo[i] == 0) {
-                                            System.out.print(prp +"Ingresa el consumo del cliente: ");
-                                            do {
-                                                consumo[i] = D.nextDouble();
-                                                if (consumo[i] <= 0) {
-                                                    System.out.println(rd +"El consumo debe ser mayor que 0.");
-                                                }
-                                            } while (consumo[i] <= 0);
-                                            break;
-                                        } else {
-                                            System.out.print(prp +"Ya este cliente tiene un consumo ingresado. ¿Desea modificarlo? s/n: ");
-                                            respuesta2 = S.nextLine();
-                                            if (respuesta2.equalsIgnoreCase("s")) {
-                                                System.out.print(prp +"Ingresa el consumo del cliente: ");
+                                    if (codigo[i] == 0) {
+                                        System.out.println(rd + "Ingrese numeros mayores que 0.");
+                                        break;
+                                    } else {
+                                        if (codigo[i] == n) {
+                                            if (consumo[i] == 0) {
                                                 do {
+                                                    System.out.print(prp + "Ingresa el consumo del cliente: ");
                                                     consumo[i] = D.nextDouble();
                                                     if (consumo[i] <= 0) {
-                                                        System.out.println(rd +"El consumo debe ser mayor que 0");
+                                                        System.out.println(rd + "El consumo debe ser mayor que 0.");
                                                     }
                                                 } while (consumo[i] <= 0);
+                                                break;
+                                            } else {
+                                                System.out.print(prp + "Ya este cliente tiene un consumo ingresado. ¿Desea modificarlo? s/n: ");
+                                                respuesta2 = S.nextLine();
+                                                if (respuesta2.equalsIgnoreCase("s")) {
+                                                    System.out.print(prp + "Ingresa el consumo del cliente: ");
+                                                    do {
+                                                        consumo[i] = D.nextDouble();
+                                                        if (consumo[i] <= 0) {
+                                                            System.out.println(rd + "El consumo debe ser mayor que 0");
+                                                        }
+                                                    } while (consumo[i] <= 0);
+                                                }
+                                                break;
                                             }
+                                        } else if (codigo[i] == 0) {
+                                            System.out.println(rd + "No hay ningun cliente registrado con este codigo.");
                                             break;
                                         }
-                                    } else if (codigo[i] == 0) {
-                                        System.out.println(rd +"No hay ningun cliente registrado con este codigo.");
-                                        break;
                                     }
                                 }
                                 respuesta2 = "";
-                                System.out.print(prp +"Quieres ingresar otro consumo? s/n: ");
+                                System.out.print(prp + "Quieres ingresar otro consumo? s/n: ");
                                 respuesta2 = S.nextLine();
                             } while (respuesta2.equalsIgnoreCase("s"));
+
                         }
 
                         break;
                     case 3:
-                        System.out.print("Ingresa el codigo del cliente:");
-                        n = in.nextInt();
+                        String respuesta3;
+                        if (codigo[0] == 0) {
+                            System.out.println(rd + "Actualmente no hay clientes registrados.");
+                        } else {
+                            do {
+                                System.out.print(prp + "Ingresa el codigo del cliente:");
+                                n = in.nextInt();
+                                respuesta3 = "";
+                                for (int i = 0; i < 1000; i++) {
+                                    if (codigo[i] == n) {
+                                        System.out.println(prp + "|--------------------------|");
+                                        System.out.println(prp + "| Codigo: " + codigo[i]);
+                                        System.out.println(prp + "| Nombre: " + nombre[i]);
+                                        System.out.println(prp + "| Direccion: " + direccion[i]);
+                                        System.out.println(prp + "| Consumo: " + consumo[i]);
+                                        System.out.println(prp + "| Valor de la factura: $" + (consumo[i] * 700));
+                                        System.out.println(prp + "|--------------------------|");
+                                        System.out.println("");
 
-                        for (int i = 0; i < 1000; i++) {
-                            if (codigo[i] == n) {
-                                System.out.println(prp + "|--------------------------|");
-                                System.out.println(prp + "| Codigo: " + codigo[i]);
-                                System.out.println(prp + "| Nombre: " + nombre[i]);
-                                System.out.println(prp + "| Direccion: " + direccion[i]);
-                                System.out.println(prp + "| Consumo: " + consumo[i]);
-                                System.out.println(prp + "| Valor de la factura: $" + (consumo[i] * 700));
-                                System.out.println(prp + "|--------------------------|");
-                                System.out.println("");
-
-                            } else if(codigo[i] == n) {
-                                System.out.println(rd + "No hay ningun cliente registrado con este codigo.");
-                                break;
-                            }
-                        }               
-                        
+                                    } else if (codigo[i] == n) {
+                                        System.out.println(rd + "No hay ningun cliente registrado con este codigo.");
+                                        break;
+                                    }
+                                }
+                                respuesta3 = "";
+                                System.out.print(prp+"Quieres verificar otro cliente? s/n: ");
+                                respuesta3 = S.nextLine();
+                                
+                            } while (respuesta3.equalsIgnoreCase("s"));
+                        }
                         break;
                     case 4:
-                        for (int i = 0; i < 1000; i++) {
-                            if (codigo[i] == 0) {
-                                break;
-                            } else {
-                                System.out.println(prp + "|--------------------------|");
-                                System.out.println(prp + "| Codigo: " + codigo[i]);
-                                System.out.println(prp + "| Nombre: " + nombre[i]);
-                                System.out.println(prp + "| Direccion: " + direccion[i]);
-                                System.out.println(prp + "| Consumo: " + consumo[i]);
-                                System.out.println(prp + "| Valor de la factura: $" + (consumo[i] * 700));
-                                System.out.println(prp + "|--------------------------|");
-                                System.out.println("");
+                        if (codigo[0] == 0) {
+                            System.out.println(rd + "Actualmente no hay clientes registrados.");
+                        } else {
+                            for (int i = 0; i < 1000; i++) {
+                                if (codigo[i] == 0) {
+                                    //break;
+                                } else {
+                                    System.out.println(prp + "|--------------------------|");
+                                    System.out.println(prp + "| Codigo: " + codigo[i]);
+                                    System.out.println(prp + "| Nombre: " + nombre[i]);
+                                    System.out.println(prp + "| Direccion: " + direccion[i]);
+                                    System.out.println(prp + "| Consumo: " + consumo[i]);
+                                    System.out.println(prp + "| Valor de la factura: $" + (consumo[i] * 700));
+                                    System.out.println(prp + "|--------------------------|");
+                                    System.out.println("");
+
+                                    totalC = totalC + consumo[i];
+                                    totalF = totalF + (consumo[i] * 700);
+                                    contador++;
+
+                                    promedioC = totalC / contador;
+                                    promedioF = totalF / contador;
+
+                                }
+                                System.out.println(prp + "Consumo total: " + totalC);
+                                System.out.println(prp + "Promedio del consumo: " + promedioC);
+
+                                System.out.println(prp + "Factura total: " + totalF);
+                                System.out.println(prp + "Promedio de la factura: " + promedioF);
+
+                                totalC = 0;
+                                promedioC = 0;
+                                totalF = 0;
+                                promedioF = 0;
+                                contador = 0;
                             }
                         }
-                        System.out.print(prp +"Presione enter para continuar...");
+
+                        System.out.print(prp + "Presione la tecla enter o intro para continuar...");
                         S.nextLine();
                         break;
                     case 5:
