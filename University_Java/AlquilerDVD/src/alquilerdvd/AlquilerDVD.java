@@ -1,17 +1,3 @@
-/*
-
-    Una video tienda alquila DVD a $1.500 el día. Tiene una
-    promoción que consiste en dejar gratis el  alquiler  de
-    una  película.  Realice  un  algoritmo  que  teniendo
-    como  dato  de  entrada  el  total  de películas
-    alquiladas, y el número de días de alquiler, determine
-    el monto a pagar.  Se asume que siempre se alquilan
-    al menos 2 películas.
-
-    Autor: @KaizerHind
-
- */
-
 package alquilerdvd;
 import java.util.Scanner;
 
